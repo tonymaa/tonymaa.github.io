@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>导航</title>
+  <script src="vue.js" type="text/javascript"></script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #F7F7F7;
+    }
+
+    .container {
+      background-color: #fff;
+
+    }
+
+    .container-header {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-weight: bold;
+      height: 40px;
+      padding-left: 10px;
+
+    }
+
+    .container-body {
+      display: flex;
+      border-top: 1px solid #dfdfdf;
+      padding: 20px 10px 0 10px;
+      /*justify-content: space-between;*/
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .container div {
+      display: flex;
+    }
+
+    .item-block {
+      border: 1px solid #dfdfdf;
+      flex-direction: column;
+      height: 160px;
+      width: 24%;
+      margin-bottom: 20px;
+      margin-right: 10px;
+
+    }
+
+    a:link {
+      /* 超链接正常状态下的样式 */
+      color: #000000;
+      /* 黑色 */
+      text-decoration: none;
+      /* 无下划线 */
+    }
+
+    a:visited {
+      /* 访问过的超链接 */
+      color: #000000;
+      /* 黑色 */
+      text-decoration: none;
+      /* 无下划线 */
+    }
+
+
+    .item-top {
+      height: 120px;
+      padding: 20px;
+    }
+
+    .item-logo {
+      width: 60px;
+      height: 60px;
+      margin-right: 20px;
+
+    }
+
+    .item-logo img {
+      width: 100%;
+      height: 100%;
+
+    }
+
+    .item-body {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .item-bottom {
+      height: 40px;
+      justify-content: space-around;
+      align-items: center;
+      color: #888888;
+      background-color: #F7F7F7;
+      font-size: 13px;
+    }
+
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 10px;
+    }
+
+    .notice {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .divider {
+      height: 20px;
+      width: 1px;
+      background-color: #dfdfdf;
+      float: left;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body style="padding: 10px">
+  <div class="body" id="app">
+    <div v-for="(nav, navIndex) in navs" class="container">
+      <div class="container-header">{{ nav.navName }}</div>
+      <div class="container-body">
+        <div class="item-block" v-for="(item, itemIndex) in nav.items">
+          <a v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center; background-size: 100%;`">
+            <div class="item-top" style="padding: 0px">
+              <div class="item-body" style="background-color: RGB(0,0,0,0.4)">
+                <span class="title" style="color: white; margin-left: 10px; margin-top: 10px">{{item.title}}</span>
+                <span class="notice" style="color: rgba(217,234,255,0.92); margin-left: 10px">{{item.describe}}</span>
+              </div>
+            </div>
+          </a>
+          <div class="item-bottom">
+            <span v-for="(button, buttonIndex) in item.buttons">
+               <a :href="button.url" target="_blank" >
+                 {{button.text}}
+               </a>
+              <div class="divider" v-if="buttonIndex != 0"></div>
+            </span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<script type="text/javascript">
+  app = new Vue({
+    el: "#app",
+    data: {
+      navs: [
+        {
+          navName: "个人主页导航",
+          items: [
+            {
+              title: "github",
+              describe: "tony 的git hub主页",
+              url: "https://github.com/tonymaa",
+              img: "img/github.png",
+              buttons: [
+                {
+                  text: "github 主页",
+                  url: "https://github.com/tonymaa"
+                }
+              ]
+            },
+            {
+              title: "bilibili",
+              describe: "tony 的 bilibili",
+              url: "https://space.bilibili.com/227369250",
+              img: "img/bilibili.png",
+              buttons: [
+                {
+                  text: "bilibili 主页",
+                  url: "https://space.bilibili.com/227369250"
+                }
+              ]
+            },
+            {
+              title: "tony blog",
+              describe: "tony 的个人博客",
+              url: "http://124.220.134.62/",
+              img: "img/avatar.jpg",
+              buttons: [
+                {
+                  text: "tony 博客",
+                  url: "http://124.220.134.62/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          navName: "向日葵",
+          items: [
+            {
+              title: "company computer",
+              describe: "company computer",
+              url: "https://sunlogin.oray.com/share?shareid=1002195235",
+              img: "img/xrk_logo.png",
+              buttons: [
+                {
+                  text: "打开主机",
+                  url: "https://sunlogin.oray.com/share?shareid=1002195235"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  })
+</script>
+</html>
