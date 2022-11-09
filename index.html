@@ -1,9 +1,13 @@
 <script>
-  var host = window.location.host.split(".");
-  var three = host[host.length - 3];
-  if (three === "xrkcompany"){
+  var path = window.location.href.split(window.location.host)[1].split("/");
+  var para = [];
+  for (var i = 0; i < path.length; i++){
+    if (i != "")
+      para.push(path[i]);
+  }
+  if (para[0] == "xrk" && para[1] == "company"){
     window.location.href="https://sunlogin.oray.com/share?shareid=1002195235";
-  }else{
-    window.location.href="http://124.220.134.62/"  
+  }else {
+    window.location.href="http://124.220.134.62/";
   }
 </script>
