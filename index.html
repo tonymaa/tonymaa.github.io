@@ -217,15 +217,24 @@
         }
       ]
     },
+    methods: {
+      insertDiv: function (){
+        var buttonItems =  Array.from($(".item-bottom"));
+        buttonItems.forEach(function(value,i){
+          var buttons = Array.from($(value).find("a"));
+          buttons.forEach(function (button, j){
+            if (j == buttons.length - 1) return;
+            $(button).after("<div class='divider'></div>")
+          })
+        });
+      }
+    },
     mounted: function (){
-      var buttonItems =  Array.from($(".item-bottom"));
-      buttonItems.forEach(function(value,i){
-        var buttons = Array.from($(value).find("a"));
-        buttons.forEach(function (button, j){
-          if (j == buttons.length - 1) return;
-          $(button).after("<div class='divider'></div>")
-        })
-      });
+      this.insertDiv();
+    },
+    updated: function (){
+      $(".divider").remove();
+      this.insertDiv();
     }
   })
 </script>
