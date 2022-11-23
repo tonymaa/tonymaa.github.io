@@ -155,7 +155,7 @@
     var resp = await axios.get("config.json"); 
     jsonData = resp.data;
   }
-  
+  getJson();
   app = new Vue({
     el: "#app",
     data: {
