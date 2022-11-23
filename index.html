@@ -150,19 +150,16 @@
 </body>
 
 <script type="text/javascript">
-    async function getJson(){
-      var result;
-      await axios.get("config.json").then(function (resp){
-        
-        result = resp.data;
-      });console.log(result);
-      return result;
-    }
-   
+  var jsonData;
+  async function getJson(){
+    var resp = await axios.get("config.json"); 
+    jsonData = resp.data;
+  }
+  
   app = new Vue({
     el: "#app",
     data: {
-      navs: getJson()
+      navs: jsonData
     },
     methods: {
       insertDiv: function (){
