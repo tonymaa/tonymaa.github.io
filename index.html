@@ -150,13 +150,13 @@
 </body>
 
 <script type="text/javascript">
-    function getJson(){
-      var res;
-      axios.get("config.json").then(function (resp){
-        console.log(resp.data);
-        res = resp.data;
-      });
-      return res;
+    async function getJson(){
+      var result;
+      await axios.get("config.json").then(function (resp){
+        
+        result = resp.data;
+      });console.log(result);
+      return result;
     }
    
   app = new Vue({
