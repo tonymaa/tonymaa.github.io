@@ -42,12 +42,12 @@
     }
 
     .item-block {
-      border: 1px solid #dfdfdf;
+      /* border: 1px solid #dfdfdf; */
       flex-direction: column;
       height: 160px;
       margin-bottom: 20px;
-      margin-right: 10px;
-	  padding: 0px;
+      /* margin-right: 10px; */
+	  /* padding: 0px; */
     }
 
     a:link {
@@ -124,7 +124,7 @@
     <div v-for="(nav, navIndex) in navs" class="container">
       <div class="container-header">{{ nav.navName }}</div>
       <div class="row container-body">
-        <div class="col-md-3 col-sm-5 col-xs-5 item-block" v-for="(item, itemIndex) in nav.items">
+        <div class="col-md-3 col-sm-6 col-xs-4 item-block" v-for="(item, itemIndex) in nav.items">
           <a v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center; background-size: 100%;`">
             <div class="item-top" style="padding: 0px">
               <div class="item-body" style="background-color: RGB(0,0,0,0.4)">
