@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>导航</title>
+  <link href="bootstrap.css" rel="stylesheet">
   <script src="vue.js" type="text/javascript"></script>
   <script src="jquery.js" type="text/javascript"></script>
   <script src="config.js" type="text/javascript"></script>
@@ -14,20 +15,16 @@
       padding: 0;
       height: 100%;
       background-color: #F7F7F7;
-    }
-
-    .container {
-      background-color: #fff;
 
     }
+
+	
 
     .container-header {
       display: flex;
       align-items: center;
-      font-size: 14px;
       font-weight: bold;
       height: 40px;
-      padding-left: 10px;
 
     }
 
@@ -48,10 +45,9 @@
       border: 1px solid #dfdfdf;
       flex-direction: column;
       height: 160px;
-      width: 24%;
       margin-bottom: 20px;
       margin-right: 10px;
-
+	  padding: 0px;
     }
 
     a:link {
@@ -124,11 +120,11 @@
 </head>
 
 <body style="padding: 10px">
-  <div class="body" id="app">
+  <div class="body" id="app" style="background-color: #fff;">
     <div v-for="(nav, navIndex) in navs" class="container">
       <div class="container-header">{{ nav.navName }}</div>
-      <div class="container-body">
-        <div class="item-block" v-for="(item, itemIndex) in nav.items">
+      <div class="row container-body">
+        <div class="col-md-3 col-sm-5 col-xs-5 item-block" v-for="(item, itemIndex) in nav.items">
           <a v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center; background-size: 100%;`">
             <div class="item-top" style="padding: 0px">
               <div class="item-body" style="background-color: RGB(0,0,0,0.4)">
