@@ -20,7 +20,19 @@
 
     }
 
-	
+    .top-radius {
+      border-top: 1px solid #dfdfdf;
+      border-left: 1px solid #dfdfdf;
+      border-right: 1px solid #dfdfdf;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .bottom-radius {
+      border-bottom: 1px solid #dfdfdf;
+      border-left: 1px solid #dfdfdf;
+      border-right: 1px solid #dfdfdf;
+      border-radius: 0 0 10px 10px;
+    }
 
     .container-header {
       display: flex;
@@ -120,22 +132,22 @@
     }
   </style>
 </head>
-
+	
 <body style="padding: 10px">
   <div class="body" id="app" style="background-color: #fff;">
     <div v-for="(nav, navIndex) in navs" class="container">
       <div class="container-header">{{ nav.navName }}</div>
       <div class="row container-body">
         <div class="col-md-3 col-sm-6 col-xs-4 item-block" v-for="(item, itemIndex) in nav.items">
-          <a v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center; background-size: 100%;`">
+          <a class="top-radius" v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center; background-size: 100%;`">
             <div class="item-top" style="padding: 0px">
-              <div class="item-body" style="background-color: RGB(0,0,0,0.4)">
+              <div class="item-body top-radius" style="border:0px; background-color: RGB(0,0,0,0.4)">
                 <span class="title" style="color: white; margin-left: 10px; margin-top: 10px">{{item.title}}</span>
                 <span class="notice" style="color: rgba(217,234,255,0.92); margin-left: 10px">{{item.describe}}</span>
               </div>
             </div>
           </a>
-          <div class="item-bottom">
+          <div class="item-bottom bottom-radius">
               <a :href="button.url" target="_blank" v-for="(button, buttonIndex) in item.buttons">
                 {{button.text}}
               </a>
@@ -144,7 +156,6 @@
       </div>
     </div>
   </div>
-
 </body>
 
 <script type="text/javascript">
