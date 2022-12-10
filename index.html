@@ -169,7 +169,8 @@
       return null; //返回参数值
     }
   }
-  var toName = getUrlParam("to");
+  var urlSplit = location.href.split("#");
+  var toName = urlSplit[urlSplit.length - 1];
   if (toName != null){
     for (var i = 0; i < navs.length; i++) {
       var items = navs[i].items;
