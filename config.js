@@ -78,7 +78,7 @@ navs = [
 			{
 			  text: "管理",
 			  url: "https://console.sunlogin.oray.com/",
-			  ame: "computeradmin"
+			  name: "computeradmin"
 			}
 		  ]
 		}
