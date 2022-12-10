@@ -10,7 +10,8 @@ navs = [
 		  buttons: [
 			{
 			  text: "github 主页",
-			  url: "https://github.com/tonymaa"
+			  url: "https://github.com/tonymaa",
+			  name: "github",
 			}
 		  ]
 		},
@@ -22,7 +23,8 @@ navs = [
 		  buttons: [
 			{
 			  text: "bilibili 主页",
-			  url: "https://space.bilibili.com/227369250"
+			  url: "https://space.bilibili.com/227369250",
+			  name: "bilibili",
 			}
 		  ]
 		},
@@ -34,11 +36,13 @@ navs = [
 		  buttons: [
 			{
 			  text: "博客主页",
-			  url: "http://124.220.134.62/"
+			  url: "http://124.220.134.62/",
+			  name: "blog"
 			},
 			{
 			  text: "管理",
-			  url: "http://124.220.134.62/admin"
+			  url: "http://124.220.134.62/admin",
+              name: "blogadmin"
 			}
 		  ]
 		},
@@ -50,7 +54,8 @@ navs = [
 		  buttons: [
 			{
 			  text: "相册",
-			  url: "http://124.220.134.62/pictures.html?page=pictures"
+			  url: "http://124.220.134.62/pictures.html?page=pictures",
+			  name: "album"
 			}
 		  ]
 		}
@@ -67,11 +72,13 @@ navs = [
 		  buttons: [
 			{
 			  text: "打开主机",
-			  url: "https://sunlogin.oray.com/share?shareid=1002195235"
+			  url: "https://sunlogin.oray.com/share?shareid=1002195235",
+			  name: "computer"
 			},
 			{
 			  text: "管理",
-			  url: "https://console.sunlogin.oray.com/"
+			  url: "https://console.sunlogin.oray.com/",
+			  ame: "computeradmin"
 			}
 		  ]
 		}
