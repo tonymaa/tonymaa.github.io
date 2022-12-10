@@ -170,7 +170,8 @@
     }
   }
   var urlSplit = location.href.split("#");
-  var toName = urlSplit[urlSplit.length - 1];
+  var toName = urlSplit.length == 1? null: urlSplit[urlSplit.length - 1];
+  toName = toName == null? getUrlParam("to"): toName;
   if (toName != null){
     for (var i = 0; i < navs.length; i++) {
       var items = navs[i].items;
