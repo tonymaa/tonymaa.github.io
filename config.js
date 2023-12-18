@@ -29,56 +29,15 @@ navs = [
 		  ]
 		},
 		{
-		  title: "tony blog",
-		  describe: "tony 的个人博客",
-		  url: "http://124.220.134.62/",
-		  img: "img/avatar.jpg",
-		  buttons: [
-			{
-			  text: "博客主页",
-			  url: "http://124.220.134.62/",
-			  name: "blog"
-			},
-			{
-			  text: "管理",
-			  url: "http://124.220.134.62/admin",
-              name: "blogadmin"
-			}
-		  ]
-		},
-		{
 		  title: "tony 的公开相册",
 		  describe: "tony 的公开相册",
-		  url: "http://124.220.134.62/pictures.html?page=pictures",
+		  url: "http://h1406y6769.imdo.co:47891/#/album",
 		  img: "img/tonyalbum.png",
 		  buttons: [
 			{
 			  text: "相册",
-			  url: "http://124.220.134.62/pictures.html?page=pictures",
+			  url: "http://h1406y6769.imdo.co:47891/#/album",
 			  name: "album"
-			}
-		  ]
-		}
-	  ]
-	},
-	{
-	  navName: "向日葵",
-	  items: [
-		{
-		  title: "company computer",
-		  describe: "company computer",
-		  url: "https://sunlogin.oray.com/share?shareid=1002195235",
-		  img: "img/xrk_logo.png",
-		  buttons: [
-			{
-			  text: "打开主机",
-			  url: "https://sunlogin.oray.com/share?shareid=1002195235",
-			  name: "computer"
-			},
-			{
-			  text: "管理",
-			  url: "https://console.sunlogin.oray.com/",
-			  name: "computeradmin"
 			}
 		  ]
 		}
