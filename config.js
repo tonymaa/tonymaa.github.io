@@ -73,5 +73,23 @@ navs = [
 				]
 			},
 		]
+	},
+	{
+		navName: "云服务",
+		items: [
+			{
+				title: "Nas",
+				describe: "Tony 的私有云",
+				url: "https://cloud.ugnas.com/#/login/account",
+				img: "https://images.lulian.cn/upload/202108/1629361604.png",
+				buttons: [
+					{
+						text: "登录",
+						url: "https://cloud.ugnas.com/#/login/account",
+						name: "nas",
+					}
+				]
+			},
+		]
 	}
 ];
