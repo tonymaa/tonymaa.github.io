@@ -40,6 +40,19 @@ navs = [
 			  name: "album"
 			}
 		  ]
+		},
+		{
+		  title: "音乐",
+		  describe: "音乐",
+		  url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
+		  img: "https://th.bing.com/th/id/R.6128fc9619103be592326063937b4d6c?rik=64a3htwXjp%2blTQ&riu=http%3a%2f%2fwww.kuaipng.com%2fUploads%2fpic%2fw%2f2021%2f07-07%2f102953%2fwater_102953_698_698.71_.png&ehk=glr7QUsIUv3pse7KwPci5Wz5PaqX0Xf9HwL0EYY8GJg%3d&risl=&pid=ImgRaw&r=0",
+		  buttons: [
+			{
+			  text: "音乐",
+			  url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
+			  name: "music"
+			}
+		  ]
 		}
 	  ]
 	},
