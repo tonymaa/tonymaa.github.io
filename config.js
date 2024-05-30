@@ -45,7 +45,7 @@ navs = [
 		  title: "歌单",
 		  describe: "Tony 的歌单",
 		  url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
-		  img: "https://th.bing.com/th/id/R.256613ade5466f99f7a0c42d9ca26a94?rik=khxqwdAURt5tAw&riu=http%3a%2f%2fimg.mp.itc.cn%2fupload%2f20170309%2fe317dc4aa6a244b2a9f325f92b4d87e0_th.jpeg&ehk=eYqfFhXLL1z0RKeRO%2bBoqoqBiUMUERP%2fzJfUYoef%2fVM%3d&risl=&pid=ImgRaw&r=0",
+		  img: "https://10wallpaper.com/wallpaper/1280x1024/1504/Vinyl_Records_Theme_HD_Desktop_Wallpaper_14_1280x1024.jpg",
 		  buttons: [
 			{
 			  text: "歌单",
