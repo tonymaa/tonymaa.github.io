@@ -81,7 +81,7 @@ navs = [
 				title: "Nas",
 				describe: "Tony 的私有云",
 				url: "https://cloud.ugnas.com/#/login/account",
-				img: "https://images.lulian.cn/upload/202108/1629361604.png",
+				img: "https://pic.nximg.cn/file/20210502/31733853_201029003101_2.jpg",
 				buttons: [
 					{
 						text: "登录",
