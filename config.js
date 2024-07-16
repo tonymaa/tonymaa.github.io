@@ -31,12 +31,13 @@ navs = [
 		{
 		  title: "公开相册",
 		  describe: "Tony 的公开相册",
-		  url: "http://h1406y6769.imdo.co:47891/#/album",
+		  // url: "http://h1406y6769.imdo.co:47891/#/album",
+		  url: "http://album.tonyma.cn:47891/#/album",
 		  img: "img/tonyalbum.png",
 		  buttons: [
 			{
 			  text: "相册",
-			  url: "http://h1406y6769.imdo.co:47891/#/album",
+			  url: "http://album.tonyma.cn:47891/#/album",
 			  name: "album"
 			}
 		  ]
