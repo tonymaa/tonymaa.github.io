@@ -8,6 +8,15 @@
   <title>导航</title>
   <script src="config.js" type="text/javascript"></script>
   <script>
+    function getHashPathName() {
+      const hashPaths = window.location.hash?.substring(1)?.split('/') ?? []
+      for (let pathName of hashPaths) {
+        if (pathName){
+          return pathName
+        }
+      }
+      return null;
+    }
     function getUrlParam (name) {
       //构造一个含有目标参数的正则表达式对象
       var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -18,8 +27,8 @@
         return null; //返回参数值
       }
     }
-    var urlSplit = location.href.split("#");
-    var toName = urlSplit.length == 1? null: urlSplit[urlSplit.length - 1];
+
+    var toName = getHashPathName();
     toName = toName == null? getUrlParam("to"): toName;
     // history.pushState("","","/");
     if (toName != null){
