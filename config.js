@@ -76,12 +76,12 @@ navs = [
 			{
 				title: "miniPaint",
 				describe: "Web Photoshop / 网页版PS",
-				url: "https://viliusle.github.io/miniPaint/",
+				url: "./miniPaint",
 				img: "https://viliusle.github.io/miniPaint/images/logo.svg",
 				buttons: [
 					{
 						text: "打开",
-						url: "https://viliusle.github.io/miniPaint/",
+						url: "./miniPaint",
 						name: "ps",
 					}
 				]
