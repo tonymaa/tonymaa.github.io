@@ -33,7 +33,7 @@ navs = [
 		  describe: "Tony 的公开相册",
 		  // url: "http://h1406y6769.imdo.co:47891/#/album",
 		  url: "http://album.tonyma.cn:47891/#/album",
-		  img: "img/tonyalbum.png",
+		  img: "http://album.tonyma.cn:47891/api/albums/cover?d=ZOPxLLI&title=%E5%88%86%E4%BA%AB",
 		  buttons: [
 			{
 			  text: "相册",
