@@ -4,7 +4,7 @@ navs = [
 		items: [
 			{
 				title: "相册",
-				describe: "Tony 的公开相册",
+				describe: "Tony 的相册分享",
 				url: "http://album.tonyma.cn:47891/#/album",
 				img: "img/tonyalbum.png",
 				buttons: [
@@ -16,7 +16,7 @@ navs = [
 				]
 			},{
 				title: "笔记",
-				describe: "Tony 的笔记",
+				describe: "Tony 的笔记分享",
 				url: "http://album.tonyma.cn:47891/#/note",
 				img: "img/note.png",
 				buttons: [
@@ -26,7 +26,19 @@ navs = [
 						name: "note"
 					}
 				]
-			},
+			},{
+				title: "歌单",
+				describe: "Tony 的歌单分享",
+				url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
+				img: "https://10wallpaper.com/wallpaper/1280x1024/1504/Vinyl_Records_Theme_HD_Desktop_Wallpaper_14_1280x1024.jpg",
+				buttons: [
+					{
+						text: "歌单",
+						url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
+						name: "music"
+					}
+				]
+			}
 		]
 	},
 	{
@@ -55,19 +67,6 @@ navs = [
 			  text: "bilibili 主页",
 			  url: "https://space.bilibili.com/227369250",
 			  name: "bilibili",
-			}
-		  ]
-		},
-		{
-		  title: "歌单",
-		  describe: "Tony 的歌单",
-		  url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
-		  img: "https://10wallpaper.com/wallpaper/1280x1024/1504/Vinyl_Records_Theme_HD_Desktop_Wallpaper_14_1280x1024.jpg",
-		  buttons: [
-			{
-			  text: "歌单",
-			  url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
-			  name: "music"
 			}
 		  ]
 		}
