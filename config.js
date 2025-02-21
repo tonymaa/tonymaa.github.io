@@ -1,6 +1,36 @@
 navs = [
 	{
-	  navName: "个人主页导航",
+		navName: "我的网站",
+		items: [
+			{
+				title: "相册",
+				describe: "Tony 的公开相册",
+				url: "http://album.tonyma.cn:47891/#/album",
+				img: "img/tonyalbum.png",
+				buttons: [
+					{
+						text: "相册",
+						url: "http://album.tonyma.cn:47891/#/album",
+						name: "album"
+					}
+				]
+			},{
+				title: "笔记",
+				describe: "Tony 的笔记",
+				url: "http://album.tonyma.cn:47891/#/note",
+				img: "img/note.png",
+				buttons: [
+					{
+						text: "笔记",
+						url: "http://album.tonyma.cn:47891/#/note",
+						name: "note"
+					}
+				]
+			},
+		]
+	},
+	{
+	  navName: "我的主页",
 	  items: [
 		{
 		  title: "Github",
@@ -25,20 +55,6 @@ navs = [
 			  text: "bilibili 主页",
 			  url: "https://space.bilibili.com/227369250",
 			  name: "bilibili",
-			}
-		  ]
-		},
-		{
-		  title: "公开相册",
-		  describe: "Tony 的公开相册",
-		  // url: "http://h1406y6769.imdo.co:47891/#/album",
-		  url: "http://album.tonyma.cn:47891/#/album",
-		  img: "img/tonyalbum.png",
-		  buttons: [
-			{
-			  text: "相册",
-			  url: "http://album.tonyma.cn:47891/#/album",
-			  name: "album"
 			}
 		  ]
 		},
