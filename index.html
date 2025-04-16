@@ -39,6 +39,10 @@
       for (var i = 0; i < navs.length; i++) {
         var items = navs[i].items;
         for (var j = 0; j < items.length; j++) {
+          if (items[j]?.name === toName){
+            location.replace(items[j]?.url);
+            break;
+          }
           var buttons = items[j].buttons;
           for (let k = 0; k < buttons.length; k++) {
             var name = buttons[k].name;
@@ -182,7 +186,7 @@
     <div v-for="(nav, navIndex) in navs" class="container">
       <div class="container-header">{{ nav.navName }}</div>
       <div class="row container-body">
-        <div class="col-md-3 col-sm-6 col-xs-4 item-block" v-for="(item, itemIndex) in nav.items">
+        <div class="col-md-3 col-sm-6 col-xs-4 item-block" v-for="(item, itemIndex) in nav.items" v-if="item?.hidden !== true">
           <a class="top-radius" v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center; background-size: 100%;`">
             <div class="item-top" style="padding: 0px">
               <div class="item-body top-radius" style="border:0px; background-color: RGB(0,0,0,0.4)">

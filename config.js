@@ -38,6 +38,10 @@ navs = [
 						name: "music"
 					}
 				]
+			},{
+				name: 'gold',
+				hidden: true,
+				url: "http://album.tonyma.cn:49901",
 			}
 		]
 	},
