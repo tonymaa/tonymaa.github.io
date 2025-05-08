@@ -43,8 +43,8 @@
             location.replace(items[j]?.url);
             break;
           }
-          var buttons = items[j].buttons;
-          for (let k = 0; k < buttons.length; k++) {
+          var buttons = items[j]?.buttons;
+          for (let k = 0; k < buttons?.length; k++) {
             var name = buttons[k].name;
             if (name == toName){
               location.replace(buttons[k].url);
