@@ -42,6 +42,10 @@ navs = [
 				name: 'gold',
 				hidden: true,
 				url: "http://album.tonyma.cn:49901",
+			},{
+				name: 'home',
+				hidden: true,
+				url: "http://192.168.1.100:1800",
 			}
 		]
 	},
