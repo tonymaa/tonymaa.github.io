@@ -45,7 +45,7 @@ navs = [
 			},{
 				name: 'home',
 				hidden: true,
-				url: "http://192.168.1.100:1800",
+				url: "http://192.168.1.100",
 			}
 		]
 	},
