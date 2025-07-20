@@ -5,24 +5,24 @@ navs = [
 			{
 				title: "相册",
 				describe: "Tony 的相册分享",
-				url: "http://album.tonyma.cn:47891/#/album",
+				url: "https://album.tonyma.cn:47891/#/album",
 				img: "img/tonyalbum.png",
 				buttons: [
 					{
 						text: "相册",
-						url: "http://album.tonyma.cn:47891/#/album",
+						url: "https://album.tonyma.cn:47891/#/album",
 						name: "album"
 					}
 				]
 			},{
 				title: "笔记",
 				describe: "Tony 的笔记分享",
-				url: "http://album.tonyma.cn:47891/#/note",
+				url: "https://album.tonyma.cn:47891/#/note",
 				img: "img/note.png",
 				buttons: [
 					{
 						text: "笔记",
-						url: "http://album.tonyma.cn:47891/#/note",
+						url: "https://album.tonyma.cn:47891/#/note",
 						name: "note"
 					}
 				]
