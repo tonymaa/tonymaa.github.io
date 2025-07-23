@@ -6,7 +6,8 @@ navs = [
 				title: "相册",
 				describe: "Tony 的相册分享",
 				url: "https://album.tonyma.cn:47891/#/album",
-				img: "img/tonyalbum.png",
+				img: "https://album.tonyma.cn:47891/api/albums/cover?d=ZgwAPGo&title=分享",
+				defaultImg: "img/tonyalbum.png",
 				buttons: [
 					{
 						text: "相册",

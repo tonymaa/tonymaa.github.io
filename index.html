@@ -187,7 +187,7 @@
       <div class="container-header">{{ nav.navName }}</div>
       <div class="row container-body">
         <div class="col-md-3 col-sm-6 col-xs-4 item-block" v-for="(item, itemIndex) in nav.items" v-if="item?.hidden !== true">
-          <a class="top-radius" v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center; background-size: 100%;`">
+          <a class="top-radius" v-bind:href="item.url" target="_blank" :style="`background: url('${encodeURI(item.img)}') no-repeat center, url('${encodeURI(item.defaultImg)}') no-repeat center; background-size: 100%;`">
             <div class="item-top" style="padding: 0px">
               <div class="item-body top-radius" style="border:0px; background-color: RGB(0,0,0,0.4)">
                 <span class="title" style="color: white; margin-left: 10px; margin-top: 10px">{{item.title}}</span>
