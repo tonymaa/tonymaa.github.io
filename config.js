@@ -7,7 +7,7 @@ navs = [
 				describe: "Tony 的相册分享",
 				url: "https://album.tonyma.cn:47891/#/album",
 				img: "https://album.tonyma.cn:47891/api/albums/cover?d=ZgwAPGo&title=分享",
-				defaultImg: "img/tonyalbum.png",
+				defaultImg: "img/album_bg.png",
 				buttons: [
 					{
 						text: "相册",
@@ -19,7 +19,7 @@ navs = [
 				title: "笔记",
 				describe: "Tony 的笔记分享",
 				url: "https://album.tonyma.cn:47891/#/note",
-				img: "img/note.png",
+				img: "img/note_site.png",
 				buttons: [
 					{
 						text: "笔记",
@@ -31,7 +31,7 @@ navs = [
 				title: "歌单",
 				describe: "Tony 的歌单分享",
 				url: "https://space.bilibili.com/227369250/favlist?fid=1247372250&ftype=create&spm_id_from=333.1007.0.0",
-				img: "https://10wallpaper.com/wallpaper/1280x1024/1504/Vinyl_Records_Theme_HD_Desktop_Wallpaper_14_1280x1024.jpg",
+				img: "img/music_list.png",
 				buttons: [
 					{
 						text: "歌单",
@@ -92,7 +92,7 @@ navs = [
 				title: "瀚文75",
 				describe: "瀚文75键盘管理界面",
 				url: "./zmkx.app/index.html",
-				img: "https://img.zcool.cn/community/01i76galyvo4os72t7jmaq3939.png?x-oss-process=image/auto-orient,1/resize,m_lfit,w_1280,limit_1/sharpen,100/quality,q_100",
+				img: "img/hanwen.png",
 				buttons: [
 					{
 						text: "管理界面",
@@ -105,7 +105,7 @@ navs = [
 				title: "miniPaint",
 				describe: "Web Photoshop / 网页版PS",
 				url: "./miniPaint",
-				img: "https://viliusle.github.io/miniPaint/images/logo.svg",
+				img: "img/miniprint.png",
 				buttons: [
 					{
 						text: "打开",
@@ -118,7 +118,7 @@ navs = [
 				title: "电梓播放器",
 				describe: "浏览器插件 - Bilibili第三方音频播放器",
 				url: (/Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)) ? "https://chromewebstore.google.com/detail/%E7%94%B5%E6%A2%93%E6%92%AD%E6%94%BE%E5%99%A8-%E7%AC%AC%E4%B8%89%E6%96%B9bilibili%E9%9F%B3%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8/bdplgemfnbaefommicdebhboajognnhj?hl=zh-CN": "https://microsoftedge.microsoft.com/addons/detail/%E7%94%B5%E6%A2%93%E6%92%AD%E6%94%BE%E5%99%A8%E7%AC%AC%E4%B8%89%E6%96%B9bilibili%E9%9F%B3%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8/bikfgaolchpolficinadmbmkkohkbkdf?hl=zh-CN",
-				img: "https://github.com/kenmingwang/azusa-player/raw/master/public/img/logo2-01.png?raw=true",
+				img: "img/azusa.png",
 				buttons: [
 					{
 						text: "谷歌插件市场",
@@ -128,6 +128,19 @@ navs = [
 						text: "微软插件市场",
 						url: "https://microsoftedge.microsoft.com/addons/detail/%E7%94%B5%E6%A2%93%E6%92%AD%E6%94%BE%E5%99%A8%E7%AC%AC%E4%B8%89%E6%96%B9bilibili%E9%9F%B3%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8/bikfgaolchpolficinadmbmkkohkbkdf?hl=zh-CN",
 						name: "ps",
+					}
+				]
+			},
+			{
+				title: "KatelyTV",
+				describe: "影视资源站合集",
+				url: "https://album.tonyma.cn:49903",
+				img: "img/katelyTV.png",
+				buttons: [
+					{
+						text: "打开",
+						url: "https://album.tonyma.cn:49903",
+						name: "album"
 					}
 				]
 			}
@@ -140,7 +153,7 @@ navs = [
 				title: "Nas",
 				describe: "Tony 的私有云",
 				url: "https://cloud.ugnas.com/#/login/account",
-				img: "https://pic.nximg.cn/file/20210502/31733853_201029003101_2.jpg",
+				img: "img/nas.png",
 				buttons: [
 					{
 						text: "登录",
