@@ -140,7 +140,7 @@ navs = [
 					{
 						text: "打开",
 						url: "https://album.tonyma.cn:49903",
-						name: "album"
+						name: "tv"
 					}
 				]
 			}
