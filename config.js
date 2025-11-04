@@ -40,6 +40,18 @@ navs = [
 					}
 				]
 			},{
+				title: "影视资源",
+				describe: "影视资源站合集",
+				url: "https://album.tonyma.cn:49903",
+				img: "img/katelyTV.png",
+				buttons: [
+					{
+						text: "打开",
+						url: "https://album.tonyma.cn:49903",
+						name: "tv"
+					}
+				]
+			},{
 				name: 'gold',
 				hidden: true,
 				url: "http://album.tonyma.cn:49901",
@@ -47,11 +59,7 @@ navs = [
 				name: 'home',
 				hidden: true,
 				url: "http://192.168.1.100",
-			},{
-				name: 'gpt',
-				hidden: true,
-				url: "http://album.tonyma.cn:49902",
-			}
+			},
 		]
 	},
 	{
@@ -130,17 +138,16 @@ navs = [
 						name: "ps",
 					}
 				]
-			},
-			{
-				title: "KatelyTV",
-				describe: "影视资源站合集",
-				url: "https://album.tonyma.cn:49903",
-				img: "img/katelyTV.png",
+			},{
+				title: "Next Chat",
+				describe: "AI 对话",
+				url: "http://album.tonyma.cn:49902",
+				img: "img/next_chat.png",
 				buttons: [
 					{
-						text: "打开",
-						url: "https://album.tonyma.cn:49903",
-						name: "tv"
+						text: "AI 对话",
+						url: "http://album.tonyma.cn:49902",
+						name: "gpt",
 					}
 				]
 			}
