@@ -131,11 +131,11 @@ navs = [
 					{
 						text: "谷歌插件市场",
 						url: "https://chromewebstore.google.com/detail/%E7%94%B5%E6%A2%93%E6%92%AD%E6%94%BE%E5%99%A8-%E7%AC%AC%E4%B8%89%E6%96%B9bilibili%E9%9F%B3%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8/bdplgemfnbaefommicdebhboajognnhj?hl=zh-CN",
-						name: "ps",
+						name: "player",
 					},{
 						text: "微软插件市场",
 						url: "https://microsoftedge.microsoft.com/addons/detail/%E7%94%B5%E6%A2%93%E6%92%AD%E6%94%BE%E5%99%A8%E7%AC%AC%E4%B8%89%E6%96%B9bilibili%E9%9F%B3%E9%A2%91%E6%92%AD%E6%94%BE%E5%99%A8/bikfgaolchpolficinadmbmkkohkbkdf?hl=zh-CN",
-						name: "ps",
+						name: "player",
 					}
 				]
 			},{
