@@ -150,6 +150,18 @@ navs = [
 						name: "gpt",
 					}
 				]
+			},{
+				title: "照片拼图",
+				describe: "在线照片拼图 - 自由布局与长图拼接",
+				url: "./pinTu/index.html",
+				img: "./img/pintu.png",
+				buttons: [
+					{
+						text: "打开",
+						url: "./pinTu/index.html",
+						name: "tu",
+					}
+				]
 			}
 		]
 	},
