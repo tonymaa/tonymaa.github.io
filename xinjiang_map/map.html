@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伊犁探春9日大七座行程地图 (美团高精轨迹版)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;700&display=swap');
+        body { font-family: 'Noto Sans SC', sans-serif; background-color: #f8fafc; }
+
+        #map-container {
+            width: 100%; height: 550px; border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            z-index: 1; border: 4px solid white;
+        }
+
+        .day-active {
+            border-left: 4px solid #3b82f6; background-color: #eff6ff;
+            font-weight: bold; color: #1d4ed8; transform: translateX(4px);
+        }
+
+        .custom-div-icon {
+            display: flex; align-items: center; justify-content: center;
+            background: #3b82f6; border: 2px solid white; border-radius: 50%;
+            color: white; font-weight: bold; font-size: 11px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .custom-div-icon-red { background: #ef4444; }
+
+        .leaflet-control-attribution { display: none !important; }
+
+        /* Day color dots for route selection */
+        .route-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .route-chip {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600;
+            cursor: pointer; border: 1.5px solid transparent; transition: all 0.2s; user-select: none;
+        }
+        .route-chip.active { border-color: currentColor; }
+        .route-chip:hover { opacity: 0.8; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- 头部 -->
+        <header class="mb-6 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b pb-6 border-gray-200">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900 tracking-tight">伊犁探春 · 2026 美团路线地图</h1>
+                <p class="text-gray-500 mt-1">
+                    <span class="font-bold text-blue-600">2026/05/10</span> 出发 ·
+                    1+1头等舱大七座 · 包含唐布拉百里画廊
+                </p>
+            </div>
+            <div class="flex gap-3">
+                <div class="px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-100 text-xs text-gray-600">
+                    <p class="text-gray-400 mb-1">总里程</p>
+                    <p class="font-bold text-gray-800">约 2380 KM</p>
+                </div>
+                <div class="px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-100 text-xs text-gray-600">
+                    <p class="text-gray-400 mb-1">平均海拔</p>
+                    <p class="font-bold text-gray-800">1800 - 2500 M</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- 左侧日历列表 -->
+            <div class="lg:col-span-1 bg-white p-4 rounded-2xl shadow-sm border border-gray-100 overflow-y-auto max-h-[650px]" id="itinerary-list">
+                <h2 class="text-lg font-bold mb-4 flex items-center text-gray-800 px-2">
+                    <svg class="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    2026/05 行程日历
+                </h2>
+                <div class="space-y-2" id="day-buttons"></div>
+            </div>
+
+            <!-- 右侧地图与卡片 -->
+            <div class="lg:col-span-3 space-y-6">
+                <!-- 地图 -->
+                <div id="map-container"></div>
+
+                <!-- 路线选择 -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold text-gray-400 mr-1">显示路线：</span>
+                    <div id="routeChips"></div>
+                    <button class="text-xs text-blue-500 hover:text-blue-700 font-bold ml-2" onclick="toggleAllRoutes(true)">全选</button>
+                    <button class="text-xs text-gray-400 hover:text-gray-600 font-bold" onclick="toggleAllRoutes(false)">全不选</button>
+                    <button class="text-xs text-blue-500 hover:text-blue-700 font-bold ml-2" onclick="fitMap()">适应视图</button>
+                </div>
+
+                <!-- 详情卡片 -->
+                <div id="detail-card" class="bg-white p-6 rounded-2xl shadow-lg border border-blue-50 min-h-[220px] transition-all duration-300">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
+                        <div>
+                            <div class="flex items-center gap-3 mb-2">
+                                <span id="detail-date" class="px-3 py-1 bg-blue-600 text-white rounded-md text-sm font-bold tracking-wider italic">2026/05/10</span>
+                                <span id="detail-stats" class="text-xs text-blue-500 font-bold bg-blue-50 px-2 py-1 rounded">自由活动</span>
+                            </div>
+                            <h3 id="detail-title" class="text-2xl font-bold text-gray-800">乌鲁木齐集合</h3>
+                        </div>
+                        <div class="bg-gray-50 px-4 py-2 rounded-xl border border-gray-100 text-right">
+                            <p class="text-[10px] text-gray-400 font-bold uppercase mb-1">入住酒店</p>
+                            <p id="detail-hotel" class="font-bold text-gray-700 text-sm">乌鲁木齐携程4钻</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 mt-2 bg-blue-500 rounded-full mr-3 shrink-0"></div>
+                            <p id="detail-desc" class="text-gray-600 text-sm leading-relaxed"></p>
+                        </div>
+                        <div id="detail-alert" class="flex items-start p-4 bg-orange-50 border-l-4 border-orange-500 text-orange-800 text-xs rounded-r-lg">
+                            <svg class="w-4 h-4 mr-2 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            <span id="alert-text"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部说明 -->
+        <footer class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="p-5 bg-white rounded-2xl border border-gray-100 shadow-sm text-gray-500">
+                <p class="font-bold text-gray-800 mb-2">🛣️ 轨迹数据说明</p>
+                <p>地图中的实线轨迹同步自美团版高精导航点位。D2 赛里木湖、D5 琼库什台及 D8 翻越天山段为重点驾驶路段，山路及隧道限速较多，建议提前做好防晕车准备。</p>
+            </div>
+            <div class="p-5 bg-red-50 rounded-2xl border border-red-100 text-red-800">
+                <p class="font-bold mb-2">⚠️ 合同履行提醒</p>
+                <p>根据合同约定，那拉提住宿及唐布拉营地非升级款，条件较为朴素。若遇不可抗力导致胜利隧道封路，需配合司机调整并自行承担改道火车的差旅费。</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="route_data.js"></script>
+    <script>
+    // ========== ITINERARY DATA ==========
+    const itinerary = [
+        { date: "2026/05/10", key: 'd1', title: "乌鲁木齐集合", pos: [43.7928, 87.6177], hotel: "乌鲁木齐携程4钻", stats: "自由活动", desc: "抵达首府，专人接机。今日可自由活动，感受二道桥大巴扎的西域风情，或去博物馆瞻仰'小河公主'。", alert: "新疆酒店入住时间通常为下午14点后。" },
+        { date: "2026/05/11", key: 'd2', title: "赛里木湖日落", pos: [44.60, 81.21], hotel: "赛湖东门携程四钻", stats: "563km / 6.5h", desc: "正式启程，穿越准噶尔盆地直抵大西洋最后一滴眼泪。在月亮湾静待最美日落。", alert: "湖边海拔较高且风大，即使是5月傍晚也非常寒冷，必带厚羽绒或冲锋衣。" },
+        { date: "2026/05/12", key: 'd3', title: "环湖之旅-伊宁", pos: [43.903, 81.324], hotel: "伊宁携程四钻", stats: "165km / 3.0h", desc: "二进赛湖环湖90公里，深度打卡S弯、帆船中心。下午前往六星街，漫步蓝色梦幻小屋。", alert: "六星街人流大，注意保管好相机、手机等贵重物品。" },
+        { date: "2026/05/13", key: 'd4', title: "夏塔古道-昭苏", pos: [43.16, 81.13], hotel: "昭苏县携程四钻", stats: "267+82km / 6.0h", desc: "挑战夏塔古道，徒步木栈道近距离仰望木札特冰川。雪山、森林、溪流在此共生。", alert: "如遇限流无法自驾进入，将转为景区区间车并退还100元门票差价。" },
+        { date: "2026/05/14", key: 'd5', title: "琼库什台秘境", pos: [43.22, 81.84], hotel: "特克斯携程四钻", stats: "105+61km / 6.0h", desc: "探访藏在深山里的原始哈萨克村落琼库什台，这是乌孙古道起点。傍晚至特克斯八卦城。", alert: "今日盘山公路极多，车程虽短但耗时长且颠簸，请提前准备晕车贴。" },
+        { date: "2026/05/15", key: 'd6', title: "库尔德宁-唐布拉", pos: [43.78, 82.65], hotel: "唐布拉营地(无独卫)", stats: "108+129km / 6.0h", desc: "探访雪岭云杉故乡库尔德宁。傍晚入住唐布拉百里画廊，星空营地入眠。", alert: "重要：唐布拉营地条件有限，部分房型无独立卫浴，但星空景色为全疆顶尖。" },
+        { date: "2026/05/16", key: 'd7', title: "那拉提空中草原", pos: [43.33, 84.01], hotel: "那拉提携程4钻", stats: "145km / 3.0h", desc: "寻找顶冰花。在那拉提空中草原深度游览，看雪山下野花顶着积雪绽放。", alert: "5月仍有残雪，徒步时注意防滑防潮。" },
+        { date: "2026/05/17", key: 'd8', title: "翻越天山-乌市", pos: [43.7928, 87.6177], hotel: "乌鲁木齐携程四钻", stats: "425km / 7.3h", desc: "穿越天山胜利隧道。全天翻越崇山峻岭，见证基建奇迹与自然的极致碰撞。", alert: "若巴伦台封路导致行程中断，需配合司机折返伊宁乘坐火车回乌市，费用自理。" },
+        { date: "2026/05/18", key: 'd9', title: "依依惜别-送机", pos: [43.9000, 87.5100], hotel: "温暖的家", stats: "根据航班时间", desc: "带着对伊犁之春的美好回忆返程。大美新疆，期待与您再次重逢。", alert: "建议不要买中午前的机票，以免早高峰堵车导致误机。" }
+    ];
+
+    const COLORS = { d2: '#e74c3c', d3: '#3498db', d4: '#2ecc71', d5: '#f39c12', d6: '#9b59b6', d7: '#1abc9c', d8: '#e67e22' };
+
+    const ROUTE_SEGMENTS = {
+        d2: ['d2'], d3: ['d3'], d4: ['d4_1', 'd4_2'], d5: ['d5_1', 'd5_2'],
+        d6: ['d6_1', 'd6_2'], d7: ['d7_1'], d8: ['d8_1']
+    };
+
+    const ROUTE_INFO = {
+        d2: { from: '乌鲁木齐', to: '赛里木湖', dist: '563km', time: '~6.5h' },
+        d3: { from: '赛里木湖', to: '伊宁', dist: '165km', time: '~3h' },
+        d4_1: { from: '伊宁', to: '夏塔(绕行特克斯)', dist: '267km', time: '~4.5h' },
+        d4_2: { from: '夏塔', to: '昭苏', dist: '82km', time: '~1.5h' },
+        d5_1: { from: '昭苏', to: '琼库什台', dist: '105km', time: '~3.5h' },
+        d5_2: { from: '琼库什台', to: '特克斯', dist: '61km', time: '~2.5h' },
+        d6_1: { from: '特克斯', to: '库尔德宁', dist: '108km', time: '~3h' },
+        d6_2: { from: '库尔德宁', to: '唐布拉', dist: '129km', time: '~3h' },
+        d7_1: { from: '唐布拉', to: '那拉提', dist: '145km', time: '~3h' },
+        d8_1: { from: '那拉提', to: '乌鲁木齐(天山隧道)', dist: '425km', time: '~7.3h' }
+    };
+
+    const POINTS = {
+        d2: {
+            attractions: [{ name: '赛里木湖', lat: 44.60, lng: 81.21, desc: '大西洋最后一滴眼泪·湖边漫步看日落' }],
+            hotels: [{ name: '伊力特酒店(乌鲁木齐)', lat: 43.7928, lng: 87.6177 }, { name: '赛里木湖酒店', lat: 44.62, lng: 81.30 }]
+        },
+        d3: {
+            attractions: [{ name: '赛里木湖(二进)', lat: 44.60, lng: 81.21, desc: '深度环湖·下午茶' }, { name: '六星街', lat: 43.905, lng: 81.328, desc: '俄罗斯风情建筑·手风琴博物馆' }],
+            hotels: [{ name: '伊宁携程四钻', lat: 43.903, lng: 81.324 }]
+        },
+        d4: {
+            attractions: [{ name: '夏塔古道', lat: 42.72, lng: 80.62, desc: '玄奘西行之路·远眺木札特冰川' }],
+            hotels: [{ name: '昭苏酒店', lat: 43.16, lng: 81.13 }]
+        },
+        d5: {
+            attractions: [{ name: '琼库什台', lat: 42.83, lng: 81.88, desc: '原生态哈萨克古村落·乌孙古道起点' }, { name: '特克斯八卦城', lat: 43.22, lng: 81.84, desc: '世界唯一八卦布局城市' }],
+            hotels: [{ name: '特克斯携程四钻', lat: 43.22, lng: 81.84 }]
+        },
+        d6: {
+            attractions: [{ name: '库尔德宁', lat: 43.38, lng: 82.69, desc: '雪岭云杉基因库·春季草原初绿' }],
+            hotels: [{ name: '唐布拉星空营地', lat: 43.78, lng: 82.65 }]
+        },
+        d7: {
+            attractions: [{ name: '那拉提空中草原', lat: 43.33, lng: 84.01, desc: '全天游玩·野百合顶冰花·区间车游览' }],
+            hotels: [{ name: '那拉提携程四钻', lat: 43.33, lng: 84.01 }]
+        },
+        d8: {
+            attractions: [{ name: '天山胜利隧道', lat: 42.70, lng: 85.50, desc: '世界最长高速公路隧道·沿途观景' }],
+            hotels: [{ name: '乌鲁木齐携程四钻', lat: 43.7928, lng: 87.6177 }]
+        }
+    };
+
+    // ========== MAP ==========
+    let map, markers = [], routeLayers = {}, activeRoutes = {};
+    let layers = {};
+
+    function initMap() {
+        map = L.map('map-container', {
+            center: [43.8, 83.5], zoom: 7, zoomControl: true
+        });
+
+        const amapLayer = L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
+            subdomains: ['1', '2', '3', '4'], maxZoom: 18
+        }).addTo(map);
+
+        const satLayer = L.tileLayer('https://webst0{s}.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}', {
+            subdomains: ['1', '2', '3', '4'], maxZoom: 18
+        });
+
+        L.control.layers({ '地图': amapLayer, '卫星': satLayer }, null, { position: 'topright' }).addTo(map);
+
+        // Draw high-precision route polylines from route_data.js
+        renderRoutes();
+
+        // Add station markers (numbered circles)
+        itinerary.forEach((item, index) => {
+            if (!item.pos) return;
+            const isSpecial = (index === 5 || index === 6);
+            const icon = L.divIcon({
+                className: `custom-div-icon ${isSpecial ? 'custom-div-icon-red' : ''}`,
+                html: `<span>${index + 1}</span>`,
+                iconSize: [24, 24]
+            });
+            const marker = L.marker(item.pos, { icon: icon }).addTo(map)
+                .bindPopup(`<b style="color:#3b82f6">${item.date}</b><br>${item.title}`);
+            marker.on('click', () => selectDay(index));
+            markers.push(marker);
+        });
+
+        // Add attraction/hotel markers per day
+        Object.keys(POINTS).forEach(day => {
+            const group = L.layerGroup();
+            const color = COLORS[day];
+            const data = POINTS[day];
+
+            if (data.attractions) {
+                data.attractions.forEach(a => {
+                    const m = L.circleMarker([a.lat, a.lng], {
+                        radius: 6, fillColor: '#ff6d00', color: '#fff', weight: 2, fillOpacity: 0.9
+                    }).bindPopup(`<b>📍 ${a.name}</b><br><span style="color:#888">${a.desc || ''}</span>`);
+                    group.addLayer(m);
+                });
+            }
+            if (data.hotels) {
+                data.hotels.forEach(h => {
+                    const m = L.circleMarker([h.lat, h.lng], {
+                        radius: 5, fillColor: '#7c4dff', color: '#fff', weight: 2, fillOpacity: 0.9
+                    }).bindPopup(`<b>🏨 ${h.name}</b>`);
+                    group.addLayer(m);
+                });
+            }
+            layers[day] = group;
+        });
+
+        // Build sidebar buttons
+        buildSidebar();
+
+        // Build route chips
+        buildRouteChips();
+
+        // Select first day
+        selectDay(0);
+    }
+
+    function renderRoutes() {
+        Object.keys(ROUTE_SEGMENTS).forEach(day => {
+            const group = L.layerGroup();
+            const color = COLORS[day];
+            ROUTE_SEGMENTS[day].forEach(segKey => {
+                const coords = ROUTE_DATA.meituan[segKey];
+                if (coords && coords.length > 0) {
+                    const info = ROUTE_INFO[segKey] || {};
+                    const polyline = L.polyline(coords, {
+                        color: color, weight: 4, opacity: 0.85,
+                        lineCap: 'round', lineJoin: 'round'
+                    });
+                    polyline.bindPopup(`<strong>${info.from || ''} → ${info.to || ''}</strong><br>${info.dist || ''} · ${info.time || ''}`);
+                    polyline.on('mouseover', function() { this.setStyle({ weight: 6 }); });
+                    polyline.on('mouseout', function() { this.setStyle({ weight: 4 }); });
+                    group.addLayer(polyline);
+                }
+            });
+            routeLayers[day] = group;
+            activeRoutes[day] = true;
+        });
+    }
+
+    function updateRouteVisibility() {
+        Object.keys(routeLayers).forEach(day => {
+            if (activeRoutes[day]) map.addLayer(routeLayers[day]);
+            else map.removeLayer(routeLayers[day]);
+        });
+        Object.keys(layers).forEach(day => {
+            if (activeRoutes[day]) map.addLayer(layers[day]);
+            else map.removeLayer(layers[day]);
+        });
+    }
+
+    // ========== SIDEBAR ==========
+    function buildSidebar() {
+        const btnBox = document.getElementById('day-buttons');
+        itinerary.forEach((item, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'w-full text-left p-3 rounded-xl text-xs transition-all hover:bg-gray-50 border border-transparent flex flex-col gap-1 group';
+            btn.id = `btn-day-${index}`;
+            btn.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <span class="text-[10px] font-bold text-gray-400 group-hover:text-blue-500">${item.date.split('/')[1]}.${item.date.split('/')[2]}</span>
+                    <span class="font-bold text-gray-700">${item.title}</span>
+                </div>
+                <div class="text-[9px] text-blue-400 font-bold opacity-60">${item.stats}</div>
+            `;
+            btn.onclick = () => selectDay(index);
+            btnBox.appendChild(btn);
+        });
+    }
+
+    function selectDay(index) {
+        const data = itinerary[index];
+
+        // Sidebar highlight
+        itinerary.forEach((_, i) => {
+            const b = document.getElementById(`btn-day-${i}`);
+            if (i === index) b.classList.add('day-active');
+            else b.classList.remove('day-active');
+        });
+
+        // Detail card
+        document.getElementById('detail-date').textContent = data.date;
+        document.getElementById('detail-stats').textContent = `数据详情：${data.stats}`;
+        document.getElementById('detail-title').textContent = data.title;
+        document.getElementById('detail-hotel').textContent = data.hotel;
+        document.getElementById('detail-desc').textContent = data.desc;
+        document.getElementById('alert-text').textContent = data.alert;
+
+        // Route highlight: active day solid, others dashed
+        Object.keys(routeLayers).forEach(key => {
+            routeLayers[key].eachLayer(layer => {
+                if (layer instanceof L.Polyline) {
+                    if (key === data.key) {
+                        layer.setStyle({ weight: 7, opacity: 1 });
+                        layer.bringToFront();
+                    } else {
+                        layer.setStyle({ weight: 3, opacity: 0.3 });
+                    }
+                }
+            });
+        });
+
+        // Map fly-to
+        if (data.pos) {
+            map.flyTo(data.pos, (index === 0 || index === 8) ? 8 : 10, { duration: 1.5 });
+            if (markers[index]) markers[index].openPopup();
+        }
+    }
+
+    // ========== ROUTE CHIPS ==========
+    function buildRouteChips() {
+        const container = document.getElementById('routeChips');
+        const days = ['d2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8'];
+        const dayLabels = { d2: 'D2', d3: 'D3', d4: 'D4', d5: 'D5', d6: 'D6', d7: 'D7', d8: 'D8' };
+
+        days.forEach(day => {
+            const chip = document.createElement('span');
+            chip.className = 'route-chip active';
+            chip.dataset.day = day;
+            chip.style.color = COLORS[day];
+            chip.innerHTML = `<span class="route-dot" style="background:${COLORS[day]}"></span>${dayLabels[day]}`;
+            chip.onclick = () => {
+                activeRoutes[day] = !activeRoutes[day];
+                chip.classList.toggle('active', activeRoutes[day]);
+                updateRouteVisibility();
+            };
+            container.appendChild(chip);
+        });
+        updateRouteVisibility();
+    }
+
+    function toggleAllRoutes(state) {
+        Object.keys(activeRoutes).forEach(d => activeRoutes[d] = state);
+        document.querySelectorAll('.route-chip').forEach(c => c.classList.toggle('active', state));
+        updateRouteVisibility();
+    }
+
+    function fitMap() {
+        const allBounds = L.latLngBounds();
+        Object.keys(activeRoutes).forEach(day => {
+            if (activeRoutes[day]) {
+                routeLayers[day].eachLayer(layer => {
+                    if (layer instanceof L.Polyline) {
+                        try { allBounds.extend(layer.getBounds()); } catch(e) {}
+                    }
+                });
+            }
+        });
+        if (allBounds.isValid()) {
+            map.fitBounds(allBounds, { padding: [60, 60], maxZoom: 10 });
+        }
+    }
+
+    window.onload = initMap;
+    </script>
+</body>
+</html>
