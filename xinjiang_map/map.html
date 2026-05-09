@@ -150,7 +150,7 @@
         { date: "2026/05/18", key: 'd9', title: "依依惜别-送机", pos: [43.9000, 87.5100], hotel: "温暖的家", stats: "根据航班时间", desc: "带着对伊犁之春的美好回忆返程。大美新疆，期待与您再次重逢。", alert: "建议不要买中午前的机票，以免早高峰堵车导致误机。" }
     ];
 
-    const COLORS = { d2: '#e74c3c', d3: '#3498db', d4: '#2ecc71', d5: '#f39c12', d6: '#9b59b6', d7: '#1abc9c', d8: '#e67e22' };
+    const COLORS = { d2: '#b71c1c', d3: '#0d47a1', d4: '#1b5e20', d5: '#e65100', d6: '#6a1b9a', d7: '#00695c', d8: '#bf360c' };
 
     const ROUTE_SEGMENTS = {
         d2: ['d2'], d3: ['d3'], d4: ['d4_1', 'd4_2'], d5: ['d5_1', 'd5_2'],
@@ -282,12 +282,12 @@
                 if (coords && coords.length > 0) {
                     const info = ROUTE_INFO[segKey] || {};
                     const polyline = L.polyline(coords, {
-                        color: color, weight: 4, opacity: 0.85,
+                        color: color, weight: 5, opacity: 0.95,
                         lineCap: 'round', lineJoin: 'round'
                     });
                     polyline.bindPopup(`<strong>${info.from || ''} → ${info.to || ''}</strong><br>${info.dist || ''} · ${info.time || ''}`);
-                    polyline.on('mouseover', function() { this.setStyle({ weight: 6 }); });
-                    polyline.on('mouseout', function() { this.setStyle({ weight: 4 }); });
+                    polyline.on('mouseover', function() { this.setStyle({ weight: 8 }); });
+                    polyline.on('mouseout', function() { this.setStyle({ weight: 5 }); });
                     group.addLayer(polyline);
                 }
             });
@@ -349,10 +349,10 @@
             routeLayers[key].eachLayer(layer => {
                 if (layer instanceof L.Polyline) {
                     if (key === data.key) {
-                        layer.setStyle({ weight: 7, opacity: 1 });
+                        layer.setStyle({ weight: 8, opacity: 1 });
                         layer.bringToFront();
                     } else {
-                        layer.setStyle({ weight: 3, opacity: 0.3 });
+                        layer.setStyle({ weight: 3, opacity: 0.25 });
                     }
                 }
             });
